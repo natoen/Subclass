@@ -6,11 +6,9 @@ makeBlinkyDancer.prototype = Object.create(makeDancer.prototype);
 makeBlinkyDancer.prototype.constructor = makeBlinkyDancer;
 makeBlinkyDancer.prototype.step = function(){
   makeDancer.prototype.step.call(this);
-
+  this.$node.toggle();
 	this.$node.animate({'top': this.top * Math.random(), 
 	'left': this.left * Math.random()}, 1000);
-    
-  this.$node.toggle();
 };
 
 //   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,

@@ -7,7 +7,5 @@ saraDancer.prototype.constructor = saraDancer;
 
 saraDancer.prototype.step = function(){
   makeDancer.prototype.step.call(this);
-
-  this.$node.animate({'top': this.top * Math.random(), 
-    'left': this.left * Math.random()}, 1000);
+  this.$node.toggle();
 };
