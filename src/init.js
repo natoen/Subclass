@@ -55,8 +55,9 @@ $(document).ready(function(){
     }     
   };
 
-  $(".lineUp").on("click", function(event){
-    var height = 200;
+  $(".lineUp").on("click", function(event) {
+    var height = 100;
+    $(".dancer").stop(true, true).fadeOut(4000);
     for (var i = 0; i < window.dancers.length; i++) {
       window.dancers[i].lineUp(height);
       height += 40;
