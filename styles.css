@@ -1,27 +1,82 @@
-body, html{
+body, html {
   height:100%;
 }
-body{
+
+body {
   margin: 0px;
-  background-color:#444;
+  background-color: #6666ff;
   font-size: 18px;
 }
-body, a:link, a:visited, a:active{
-  color: lightblue;
+
+a:link, a:visited, a:active {
+  color: #6666ff;
+  text-decoration: none;
+  border: 2px solid #6666ff;
+  padding: 3px 5px;
+  margin-left: 5px;
+  display: inline-block;
 }
-.title, .actionButton{
+
+.title, .actionButton {
   padding:5px 12px;
-  float:right;
+  float: right;
 }
-.topbar{
-  height:32px;
-  background-color: #555;
+
+.topbar {
+  height: 32px;
+  background-color: white;
+  padding: 20px;
 }
-.title{
-  background-color: #777;
+
+.audio {
+  padding: 5px;
+  padding-left: 25px;
 }
-.dancer{
-  border:10px solid red;
-  border-radius:10px;
-  position:absolute;
+
+.title {
+  background-color: white;
+  border: 2px solid black;
+  padding-left: 100px;
+  padding-right: 100px;
+  letter-spacing: 5px;
+  word-spacing: 10px;
+}
+
+.dancer {
+  height: 100px;
+  width: 100px;
+  border: 5px solid;
+  border-color: #ff8080;
+  border-radius: 10px;
+  position: absolute;
+  -webkit-transition: width 2s;
+  transition: width 2s;
+}
+
+.dancer.saraDancer {
+  background-image: url(media/oprah.jpg);
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  border: 5px solid;
+  border-color: #ff8080;
+  border-radius: 10px;
+  -webkit-transition: width .5s;
+  transition: width .5s;
+}
+
+.dancer.hiroshiDancer {
+  background-image: url(media/kim-k.jpg);
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  border: 5px solid;
+  border-color: black;
+  border-radius: 10px;
+  -webkit-transition: width .5s;
+  transition: width .5s;
+}
+
+.dancer.saraDancer:hover, .dancer.hiroshiDancer:hover {
+  width: 300px;
 }
