@@ -20,16 +20,46 @@ $(document).ready(function(){
     // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
-    // make a dancer with a random position
+    var dancerName = "hiroshiDancer";
 
-    var dancer = dancerMakerFunction(
+    if($(".saraDancer").on("click")) {
+      dancerName = $(this).attr("class");
+    }
+
+     // make a dancer with a random position
+    var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
-      Math.random() * 1000
+      Math.random() * 1000,
+      dancerName
     );
 
     window.dancers.push(dancer);
+
     $('body').append(dancer.$node);
+
+    move();
   });
 
+  var move = function() {
+    for (var i = window.dancers.length - 1; i > 0; i--) {
+      var xSquared = Math.pow(window.dancers[i].left - window.dancers[i-1].left, 2);
+      var ySquared = Math.pow(window.dancers[i].top - window.dancers[i-1].top, 2);
+
+      if (Math.sqrt(xSquared + ySquared) > 100) {
+        window.dancers[i].$node.animate({'top': window.dancers[i].top * Math.random(), 
+          'left': window.dancers[i].left * Math.random()}, 1000);
+        window.dancers[i-1].$node.animate({'top': window.dancers[i-1].top * Math.random(), 
+          'left': window.dancers[i-1].left * Math.random()}, 1000);
+      }
+    }     
+  };
+
+  $(".lineUp").on("click", function(event){
+    var height = 200;
+    for (var i = 0; i < window.dancers.length; i++) {
+      window.dancers[i].lineUp(height);
+      height += 40;
+    }
+  });
 });
