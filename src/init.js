@@ -1,66 +1,67 @@
-$(document).ready(function(){
+$(document).ready(function() {
   window.dancers = [];
 
-  $(".addDancerButton").on("click", function(event){
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
-
+  $('.addDancerButton').on('click', function(event) {
     /* dancerMakerFunctionName is a string which must match
      * one of the dancer maker functions available in global scope.
      * A new object of the given type will be created and added
      * to the stage.
      */
-    var dancerMakerFunctionName = $(this).data("dancer-maker-function-name");
+    var dancerMakerFunctionName = $(this).data('dancer-maker-function-name');
+    var dancerName = $(this).attr('class').split(' ')[1];
 
     // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
 
-    var dancerName = "hiroshiDancer";
-
-    if($(".saraDancer").on("click")) {
-      dancerName = $(this).attr("class");
-    }
-
      // make a dancer with a random position
     var dancer = new dancerMakerFunction(
-      $("body").height() * Math.random(),
-      $("body").width() * Math.random(),
+      $('body').height() * Math.random(),
+      $('body').width() * Math.random(),
       Math.random() * 1000,
       dancerName
+      
     );
 
     window.dancers.push(dancer);
-
     $('body').append(dancer.$node);
 
-    move();
+    stayAway(); // see stayAway function below
   });
 
-  var move = function() {
-    for (var i = window.dancers.length - 1; i > 0; i--) {
-      var xSquared = Math.pow(window.dancers[i].left - window.dancers[i-1].left, 2);
-      var ySquared = Math.pow(window.dancers[i].top - window.dancers[i-1].top, 2);
+  var stayAway = function() {
+    for (var i = window.dancers.length - 1; i > -1; i--) {
+      var dancer = window.dancers[i]; // the dancer we are comparing
 
-      if (Math.sqrt(xSquared + ySquared) > 100) {
-        window.dancers[i].$node.animate({'top': window.dancers[i].top * Math.random(), 
-          'left': window.dancers[i].left * Math.random()}, 1000);
-        window.dancers[i-1].$node.animate({'top': window.dancers[i-1].top * Math.random(), 
-          'left': window.dancers[i-1].left * Math.random()}, 1000);
+      for (var j = window.dancers.length - 1; j > -1; j--) {
+        var compareDancers = window.dancers[j]; // the dancers that we'll compare above
+        var xSquared = Math.pow(dancer.$node.position().left - compareDancers.$node.position().left, 2);
+        var ySquared = Math.pow(dancer.$node.position().top - compareDancers.$node.position().top, 2);
+
+        // We will compare if the distance of the dancers is higher
+        // than a 100 and then we'll animate them to a random position
+        if (Math.sqrt(xSquared + ySquared) > 100 && dancer.$node.attr('class') === 'saraDancer' &&
+            compareDancer.$node.attr('class') === 'saraDancer') {
+          dancer.$node.animate({
+            top: dancer.$node.position().top * Math.random(), 
+            left: dancer.$node.position().left * Math.random()
+          }, 1000);
+          compareDancers.$node.animate({
+            top: compareDancers.$node.position().top * Math.random(), 
+            left: compareDancers.$node.position().left * Math.random()
+          }, 1000);
+        }
       }
-    }     
+    }  
   };
 
-  $(".lineUp").on("click", function(event) {
-    var height = 100;
-    $(".dancer").stop(true, true).fadeOut(4000);
+  $('.lineUp').on('click', function(event) {
+    var top = 125;
+    var left = 25;
+    $('.dancer').stop(true, true).fadeOut(4000);
     for (var i = 0; i < window.dancers.length; i++) {
-      window.dancers[i].lineUp(height);
-      height += 40;
+      window.dancers[i].lineUp(top, left);
+      top += 25;
+      left += 25;
     }
   });
 });
