@@ -1,5 +1,6 @@
 # Subclass Party
 JavaScript subclassing in pseudoclassical pattern.
+> var subClass = new MainClass();
 
 Each dancer is a subclass of `/src/dancer.js`
 
